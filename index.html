@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>House Inventory</title>
+
+  <!-- PWA / iPhone -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Inventory">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#0b2447">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="icon" type="image/png" href="icon-192.png">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f7f6f2; }
+    #root { height: 100%; }
+    #splash {
+      position: fixed; inset: 0; background: #0b2447;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      z-index: 9999; transition: opacity 0.4s;
+    }
+    #splash.hide { opacity: 0; pointer-events: none; }
+    #splash-icon { font-size: 72px; margin-bottom: 18px; }
+    #splash-title { color: #fff; font-size: 28px; font-weight: 800; letter-spacing: -0.02em; }
+    #splash-sub { color: rgba(255,255,255,0.5); font-size: 14px; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <div id="splash">
+    <div id="splash-icon">🏠</div>
+    <div id="splash-title">House Inventory</div>
+    <div id="splash-sub">Loading…</div>
+  </div>
+  <div id="root"></div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      // Register service worker for offline use
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+      }
+    });
+  </script>
+  <script src="app.js" onload="document.getElementById('splash').classList.add('hide')"></script>
+</body>
+</html>
